@@ -47,3 +47,55 @@ replay_pid*
 
 # .gitignore 파일
 *.idea
+
+
+############################################################ discoveryService ############################################################
+discoveryService/.gradle
+discoveryService/**/build/
+discoveryService/!src/**/build/
+
+# Ignore Gradle GUI config
+discoveryService/gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+discoveryService/!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+discoveryService/!gradle-wrapper.properties
+
+# Cache of project
+discoveryService/.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+discoveryService/.project
+# JDT-specific (Eclipse Java Development Tools)
+discoveryService/.classpath
+
+# Compiled class file
+discoveryService/*.class
+
+# Log file
+discoveryService/*.log
+
+# BlueJ files
+discoveryService/*.ctxt
+
+# Mobile Tools for Java (J2ME)
+discoveryService/.mtj.tmp/
+
+# Package Files #
+discoveryService/*.jar
+discoveryService/*.war
+discoveryService/*.nar
+discoveryService/*.ear
+discoveryService/*.zip
+discoveryService/*.tar.gz
+discoveryService/*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+discoveryService/hs_err_pid*
+discoveryService/replay_pid*
+
+# .gitignore 파일
+discoveryService/*.idea
