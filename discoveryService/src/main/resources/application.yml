@@ -3,9 +3,11 @@ server:
 
 spring:
   application:
-  name: discoveryService
+    name: discoveryService
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
