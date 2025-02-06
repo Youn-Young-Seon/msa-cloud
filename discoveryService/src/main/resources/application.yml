@@ -6,6 +6,8 @@ spring:
     name: discoveryService
 
 eureka:
+  server:
+    eviction-interval-timer-in-ms: 5000
   instance:
     prefer-ip-address: true
   client:

@@ -46,6 +46,8 @@ spring:
 
 eureka:
   client:
+    refresh:
+      enable: true
     register-with-eureka: true
     fetch-registry: true
     service-url:

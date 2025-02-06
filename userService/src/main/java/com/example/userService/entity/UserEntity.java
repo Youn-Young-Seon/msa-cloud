@@ -1,5 +1,6 @@
 package com.example.userService.entity;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @Setter
+@Getter
 public class UserEntity {
     @Id
     @GeneratedValue
