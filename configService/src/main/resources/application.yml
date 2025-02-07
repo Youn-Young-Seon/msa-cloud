@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Youn-Young-Seon/msa-cloud-config
+          default-label: main
+          search-paths: '{application}/{profile}'
+
+logging:
+  level:
+    org.springframework.cloud.config.server: DEBUG

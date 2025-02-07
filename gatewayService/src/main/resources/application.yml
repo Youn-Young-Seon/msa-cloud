@@ -10,6 +10,14 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
             - Path=/user-service/login
             - Method=POST
           filters:
@@ -85,6 +93,8 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
-token:
-  expiration_time: 864000000
-  secret: MlEXO3RdsNF7PyLULtK4u9eP9ljf6XDbO7UQs+/L2ATRLpR37UcLgZRIeXDiHd69+P7+m/x/xFc=
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans

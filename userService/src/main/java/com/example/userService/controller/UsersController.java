@@ -8,6 +8,7 @@ import com.example.userService.vo.ResponseUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +22,15 @@ import java.util.List;
 //@RequestMapping("/user-service")
 public class UsersController {
     private final UserServiceImpl usersService;
+    private final Environment env;
 
     @GetMapping("/health-check")
     public String status(HttpServletRequest request) {
-        return String.format("It's Working in User Service on Port %s", request.getServerPort());
+        return String.format("It's Working in User Service on Port"
+                + ", \nport(local.server.port)=" + env.getProperty("local.server.port")
+                + ", \nport(server.port)=" + env.getProperty("server.port")
+                + ", \nwith token secret=" + env.getProperty("token.secret")
+                + ", \nwith token time=" + env.getProperty("local.expiration_time"));
     }
 
     @PostMapping("/users")

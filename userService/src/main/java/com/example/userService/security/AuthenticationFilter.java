@@ -58,12 +58,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String username = ((User) authResult.getPrincipal()).getUsername();
         UserDto userDetails = userService.getUserDetailsByEmail(username);
 
-        System.out.println("encode = " + env.getProperty("token.secret"));
+        System.out.println("encode = " + env.getProperty("token.encode-secret"));
 
         String token = Jwts.builder()
                 .setSubject(userDetails.getEmail())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(env.getProperty("token.expiration_time"))))
-                .signWith(Keys.hmacShaKeyFor(Base64.getDecoder().decode(env.getProperty("token.secret"))))
+                .signWith(Keys.hmacShaKeyFor(Base64.getDecoder().decode(env.getProperty("token.encode-secret"))))
                 .compact();
 
 
