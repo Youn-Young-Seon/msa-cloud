@@ -63,7 +63,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         String subject = null;
 
         try {
-            SecretKey secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(env.getProperty("token.secret")));
+            SecretKey secretKey = Keys.hmacShaKeyFor(env.getProperty("token.secret").getBytes());
 
             subject = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
