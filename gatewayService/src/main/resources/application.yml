@@ -2,6 +2,11 @@ server:
   port: 8000
 
 spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   application:
     name: gateway-service
   cloud:
@@ -97,4 +102,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: refresh, health, beans, httptrace, busrefresh

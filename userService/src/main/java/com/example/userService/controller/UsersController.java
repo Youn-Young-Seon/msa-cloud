@@ -30,6 +30,7 @@ public class UsersController {
                 + ", \nport(local.server.port)=" + env.getProperty("local.server.port")
                 + ", \nport(server.port)=" + env.getProperty("server.port")
                 + ", \nwith token secret=" + env.getProperty("token.secret")
+                + ", \nwith test refresh=" + env.getProperty("test.refresh")
                 + ", \nwith token time=" + env.getProperty("local.expiration_time"));
     }
 
