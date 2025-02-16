@@ -3,6 +3,7 @@ package com.example.ordersService.controller;
 import com.example.ordersService.dto.OrderDto;
 import com.example.ordersService.entity.OrderEntity;
 import com.example.ordersService.messagebroker.KafkaProducer;
+import com.example.ordersService.messagebroker.OrderProducer;
 import com.example.ordersService.service.OrderServiceImpl;
 import com.example.ordersService.vo.RequestOrder;
 import com.example.ordersService.vo.ResponseOrder;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/order-service")
@@ -23,6 +25,7 @@ import java.util.List;
 public class OrderController {
     private final OrderServiceImpl orderService;
     private final KafkaProducer kafkaProducer;
+    private final OrderProducer orderProducer;
 
     @PostMapping("/{userId}/orders")
     public ResponseEntity<ResponseOrder> createOrder(@PathVariable("userId") String userId, @RequestBody RequestOrder orderDetails) throws JsonProcessingException {
@@ -31,11 +34,19 @@ public class OrderController {
 
         OrderDto orderDto = modelMapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
-        OrderDto createDto = orderService.createOrder(orderDto);
-        ResponseOrder returnValue = modelMapper.map(createDto, ResponseOrder.class);
+
+        /* jpa */
+//        OrderDto createDto = orderService.createOrder(orderDto);
+//        ResponseOrder returnValue = modelMapper.map(createDto, ResponseOrder.class);
+
+        /* kafka */
+        orderDto.setOrderId(UUID.randomUUID().toString());
+        orderDto.setTotalPrice(orderDetails.getQty() * orderDetails.getUnitPrice());
+        ResponseOrder returnValue = modelMapper.map(orderDto, ResponseOrder.class);
 
         /* Send an order to the Kafka */
         kafkaProducer.send("example-order-topic", orderDto);
+        orderProducer.send("orders", orderDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
     }
